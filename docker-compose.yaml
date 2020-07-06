@@ -10,7 +10,7 @@ services:
     container_name: openvpn
     restart: always
     privileged: true
-    cap_add: 'NET_ADMIN'
+    cap_add: ['NET_ADMIN']
     environment:
       OVPN_SERVER_CN: '139.198.19.54'
       OVPN_PROTOCOL: 'tcp'

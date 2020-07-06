@@ -1,0 +1,29 @@
+version: '2'
+
+networks:
+  openvpn:
+    driver: bridge
+
+services:
+  openvpn:
+    image: docker-openvpn:latest
+    container_name: openvpn
+    restart: always
+    privileged: true
+    cap_add: 'NET_ADMIN'
+    environment:
+      OVPN_SERVER_CN: '139.198.19.54'
+      OVPN_PROTOCOL: 'tcp'
+      OVPN_CLIENT_TO_CLIENT: 'true'
+      OVPN_ROUTES: '192.168.1.0/24,192.168.2.0/24'
+      OVPN_ENABLE_LDAP: 'false'
+      OVPN_LDAP_URI: 'ldap.xiaocoder.com:389'
+      OVPN_LDAP_BASE_DN: 'dc=xiaocoder,dc=com'
+      OVPN_LDAP_BIND_USER_DN: 'cn=admin,dc=xiaocoder,dc=com'
+      OVPN_LDAP_BIND_USER_PASS: 'Xiao@2020'
+    ports:
+      - 1194:1194
+    volumes:
+      - /data/openvpn:/etc/openvpn
+    networks:
+      - openvpn
